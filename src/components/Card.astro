@@ -1,0 +1,12 @@
+---
+  const { fechaFormateada, feriado, diff } = Astro.props.feriado
+  const isPast = diff < 0
+  let classNameBg = isPast == null || !isPast ? "bg-blue-200" : "bg-gray-400"
+  if (Astro.props.isNear) {
+    classNameBg = "bg-green-200"
+  }
+---
+<li class={`${classNameBg} rounded-xl p-4`}>
+  <p class="font-bold text-xl uppercase">{fechaFormateada}</p>
+  <p class="text-2xl">{feriado}</p>
+</li>

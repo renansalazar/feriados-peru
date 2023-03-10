@@ -1,0 +1,18 @@
+---
+import Card from "../components/Card.astro";
+const { list } = Astro.props
+const dateToday = new Date()
+list.forEach((feriado, index) => {
+  const fechaSplit = feriado.fecha.split("/")
+  const date = new Date(fechaSplit[2],fechaSplit[1]-1, fechaSplit[0])
+  list[index].diff = date.getTime() - dateToday.getTime()
+  list[index].fechaFormateada = Intl.DateTimeFormat('es-ES', { weekday: "long", month: "long", day: "numeric", timeZone: 'America/Lima' }).format(date)
+})
+
+const diffMin = Math.min(...list.filter(feriado => feriado.diff >= 0).map(feriado => feriado.diff))
+---
+<ul class="flex gap-4 flex-col my-4">
+  {
+    list.map(feriado => <Card feriado={feriado} isNear={feriado.diff === diffMin} />)
+  }
+</ul>
