@@ -4,7 +4,7 @@ const { list } = Astro.props
 const dateToday = new Date()
 list.forEach((feriado, index) => {
   const fechaSplit = feriado.fecha.split("/")
-  const date = new Date(fechaSplit[2],fechaSplit[1]-1, fechaSplit[0])
+  const date = new Date(`${fechaSplit[2]}-${fechaSplit[1]}-${fechaSplit[0]}T00:00:00-05:00`)
   list[index].diff = date.getTime() - dateToday.getTime()
   list[index].fechaFormateada = Intl.DateTimeFormat('es-ES', { weekday: "long", month: "long", day: "numeric", timeZone: 'America/Lima' }).format(date)
 })
